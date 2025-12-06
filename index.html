@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav class="sidebar">
-        <h2>Práctica</h2>
+        <h2>App</h2>
         <ul>
             <li><a href="#" data-modulo="tareas">Tareas</a></li>
             <li><a href="#" data-modulo="calculadora">Calculadora</a></li>
@@ -20,18 +20,17 @@
             <input type="text" id="nuevaTarea" placeholder="Nueva tarea">
             <button onclick="agregarTarea()">Agregar</button>
             <ul id="listaTareas"></ul>
-            
         </div>
         <div id="calculadora" class="modulo">
             <h1>Calculadora</h1>
-            <input type="number" id="num1" placeholder="Número 1" max="5" minlength="1">
+            <input type="number" id="num1" placeholder="Número 1" max="9" maxlength="1">
             <select id="operacion">
                 <option value="+">+</option>
                 <option value="-">-</option>
                 <option value="*">×</option>
                 <option value="/">÷</option>
             </select>
-            <input type="number" id="num2" placeholder="Número 2" max="5" minlength="1">
+            <input type="number" id="num2" placeholder="Número 2" max="9" maxlength="1">
             <button onclick="calcular()">Calcular</button>
             <p id="resultado"></p>
         </div>

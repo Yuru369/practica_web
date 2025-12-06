@@ -11,27 +11,42 @@ document.querySelectorAll('.sidebar a').forEach(link => {
 
 // Módulo Tareas (CRUD con localStorage)
 function agregarTarea() {
-    const input = document.getElementById('nuevaTarea');
-    const tareas = JSON.parse(localStorage.getItem('tareas')) || [];
-    tareas.push(input.value);
-    localStorage.setItem('tareas', JSON.stringify(tareas));
-    input.value = '';
-    mostrarTareas();
+  const input = document.getElementById('nuevaTarea');
+  const tareas = JSON.parse(localStorage.getItem('tareas')) || [];
+
+  const texto = input.value.trim();
+  if (!texto) return; // evita vacíos
+
+  tareas.push({
+    texto: texto,
+    completada: false
+  });
+
+  localStorage.setItem('tareas', JSON.stringify(tareas));
+  input.value = '';
+  mostrarTareas();
 }
+
+
 function editarTarea(index) {
-    const tareas = JSON.parse(localStorage.getItem('tareas')) || [];
-    const actual = tareas[index];
+  const tareas = JSON.parse(localStorage.getItem('tareas')) || [];
+  const tareaActual = tareas[index];
 
-    const nueva = prompt('Editar tarea:', actual);
-    if (nueva === null) return; // canceló
+  if (!tareaActual) return; // por seguridad
 
-    const textoLimpio = nueva.trim();
-    if (textoLimpio === '') return; // vacío, no se guarda
+  const nuevoTexto = prompt('Editar tarea:', tareaActual.texto);
 
-    tareas[index] = textoLimpio;
-    localStorage.setItem('tareas', JSON.stringify(tareas));
-    mostrarTareas();
+  // Si canceló el prompt
+  if (nuevoTexto === null) return;
+
+  const textoLimpio = nuevoTexto.trim();
+  if (!textoLimpio) return; // evita dejarla vacía
+
+  tareas[index].texto = textoLimpio;
+  localStorage.setItem('tareas', JSON.stringify(tareas));
+  mostrarTareas();
 }
+
 
 function eliminarTarea(index) {
     const tareas = JSON.parse(localStorage.getItem('tareas')) || [];
@@ -40,20 +55,25 @@ function eliminarTarea(index) {
     mostrarTareas();
 }
 function mostrarTareas() {
-    const lista = document.getElementById('listaTareas');
-    const tareas = JSON.parse(localStorage.getItem('tareas')) || [];
+  const lista = document.getElementById('listaTareas');
+  const tareas = JSON.parse(localStorage.getItem('tareas')) || [];
 
-    lista.innerHTML = tareas.map((tarea, i) =>
-    `<li class="${tarea.completada ? 'tarea-completada' : ''}">
+  lista.innerHTML = tareas.map((tarea, i) => `
+    <li class="${tarea.completada ? 'tarea-completada' : ''}">
+      <div>
+        <input type="checkbox"
+               ${tarea.completada ? 'checked' : ''}
+               onclick="completarTarea(${i})">
         <span>${tarea.texto}</span>
-        <div>
-            <button class="btn-editar" onclick="editarTarea(${i})">Editar</button>
-            <button class="btn-eliminar" onclick="eliminarTarea(${i})">Eliminar</button>
-        </div>
-    </li>`
-    ).join('');
-
+      </div>
+      <div>
+        <button class="btn-editar" onclick="editarTarea(${i})">Editar</button>
+        <button class="btn-eliminar" onclick="eliminarTarea(${i})">Eliminar</button>
+      </div>
+    </li>
+  `).join('');
 }
+
 
 mostrarTareas(); // Carga inicial
 
