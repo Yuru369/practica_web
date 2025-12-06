@@ -181,7 +181,7 @@ button:active {
   background: linear-gradient(135deg, #059669, #047857);
 }
 
-/* Botón Eliminar (rojo) */
+
 .btn-eliminar {
   background: linear-gradient(135deg, #ef4444, #dc2626);
   color: #ffffff;

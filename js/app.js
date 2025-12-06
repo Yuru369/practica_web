@@ -61,7 +61,7 @@ function completarTarea(index) {
 
   if (!tarea) return;
 
-  // Cambia true ↔ false
+ 
   tarea.completada = !tarea.completada;
 
   localStorage.setItem('tareas', JSON.stringify(tareas));
