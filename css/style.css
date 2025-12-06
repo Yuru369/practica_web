@@ -191,6 +191,12 @@ button:active {
   background: linear-gradient(135deg, #dc2626, #b91c1c);
 }
 
+.tarea-completada span {
+  text-decoration: line-through;
+  color: #9ca3af;
+  opacity: 0.85;
+}
+
 
 
 /* Calculadora */

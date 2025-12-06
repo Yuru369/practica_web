@@ -54,6 +54,20 @@ function eliminarTarea(index) {
     localStorage.setItem('tareas', JSON.stringify(tareas));
     mostrarTareas();
 }
+
+function completarTarea(index) {
+  const tareas = JSON.parse(localStorage.getItem('tareas')) || [];
+  const tarea = tareas[index];
+
+  if (!tarea) return;
+
+  // Cambia true ↔ false
+  tarea.completada = !tarea.completada;
+
+  localStorage.setItem('tareas', JSON.stringify(tareas));
+  mostrarTareas();
+}
+
 function mostrarTareas() {
   const lista = document.getElementById('listaTareas');
   const tareas = JSON.parse(localStorage.getItem('tareas')) || [];
